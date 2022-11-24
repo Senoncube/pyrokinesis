@@ -1,0 +1,53 @@
+.section-wraper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.section {
+    width: 80%;
+    display: flex;
+    gap: 20px;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.text {
+    font-size: 25px;
+    align-items: center;
+    text-indent: 50px;
+}
+
+
+.img-right {
+    float: right;
+    margin: 20px 0 20px 20px;
+}
+
+.img-left {
+    float: left;
+    margin: 20px 20px 20px 0;
+}
+
+h1:not(:first-of-type) {
+    margin-bottom: 50px;
+}
+
+.abzac {
+    margin-top: 20px;
+}
+
+.line.main {
+    margin: 50px auto;
+}
+
+.line.main:first-of-type {
+    margin-top: 100px;
+}
+
+.next-line {
+    margin-bottom: 40px;
+}
+
+.big-img {
+    width: 600px;
+}

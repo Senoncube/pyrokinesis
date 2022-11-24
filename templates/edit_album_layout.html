@@ -1,0 +1,199 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    {% if album %}
+        {{ album.name }}
+    {% else %}
+        New Album
+    {% endif %}
+{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="/static/album_styles.css">
+    <link rel="stylesheet" href="/static/edit_album_styles.css">
+{% endblock %}
+
+{% block content %}
+    <form method="post" action="" enctype="multipart/form-data">
+        <div class="line main"></div>
+            <h1>Назва: <input id="name" minlength="4" maxlength="20" name="name" type="text" value="{% if album %}{{ album.name }}{% endif %}"></h1>
+        <div class="line main"></div>
+        <h2>Рік випуску: <input id="year" min="1900" max="2100" name="year" type="number" value="{% if album %}{{ album.year }}{% endif %}"></h2>
+        <h2 class="sec">Шлях на сайті: <input id="path" minlength="4" pattern="\w{4,20}" name="path" type="text" value="{% if album %}{{ album.path }}{% endif %}"></h2>
+        <div class="section-wraper">
+            <div class="section">
+                <div class="text">
+                    <h3>Опис:</h3>
+                    <textarea name="description" id="description">{% if album %}{{ album.description }}{% endif %}</textarea>
+                </div>
+                <div class="photo-without">
+                    {% if album %}
+                        <img src="/static/covers/{{ album.cover }}">
+                    {% else %}
+                        <img src="https://abrakadabra.fun/uploads/posts/2022-02/1646065077_2-abrakadabra-fun-p-plastinka-na-prozrachnom-fone-8.png">
+                    {% endif %}
+                    <button class="plus" type="button" id="new_image">+</button>
+                    
+                </div>
+            </div>
+        </div>
+         <h1 class="marg">Трек-лист:</h1>
+    <div class="section-wraper">
+        <div class="song-list">
+            <div class="song-li list-head">
+                <div>№</div>
+                <div>Назва</div>
+                <div>Час</div>
+            </div>
+            <div class="line small"></div>
+            {% if album %}
+                {% for song in album.songs %}
+                    <div class="song-li">
+                        <div><input class="song_id" min="1" type="number" value="{{ song.in_alb_id }}"></div>
+                        <div><input class="song_name" minlength="4" maxlength="20" type="text" value="{{ song.name }}"></div>
+                        <div><input class="song_length" type="text" pattern="[1-5]?\d:[0-5]\d" value="{{ song.length }}"></div>
+                        <div><button class="delete" type="button"><img src="https://cdn3.iconfinder.com/data/icons/social-messaging-ui-color-line/254000/82-512.png"></button></div>
+                    </div>
+                    <div class="line small"></div>
+                {% endfor %}
+            {% endif %}
+                <div class="section-wraper">
+                    <button id="new-song" class="new-song plus" type="button">+</button>
+                </div>
+        </div>
+    </div>
+    <h1>Автор поста: {% if album %}{{ post_author }}{% else %}{{ session['user'] }}{% endif %}</h1>
+    <section class="section-wraper">
+         <div class="buttons-wraper">
+             {% if redact %}
+                 <a type="button" href="/albums/{{ album.path }}_delete" id="del_but" class="button cool-border cancel">Видалити</a>
+             {% endif %}
+             <button type="submit" class="button cool-border save">Зберегти</button>
+             <a type="button"
+                {% if album %}
+                    href="/albums/{{ album.path }}"
+                {% else %}
+                    href = "/albums"
+                {% endif %}
+                class="button cool-border">Скасувати</a>
+        </div>
+    </section>
+        <input type="number" style="display: none" name="songs_count" id="songs_count"
+               {% if album %}value="{{ album.songs|count }}"
+                {% else %}
+                   value="0"
+                {% endif %}>
+        <input type="file" name="img_file" id="file" style="display: none">
+    </form>
+    <script>
+        document.querySelectorAll('.delete').forEach(function (del_but) {
+            del_but.onclick = function () {
+                del_but.parentElement.parentElement.nextElementSibling.remove();
+                del_but.parentElement.parentElement.remove();
+                refresh_names();
+                let song_count = parseInt(document.getElementById('songs_count').value);
+                document.getElementById('songs_count').value = song_count - 1;
+                //del_but.parentElement.nextElementSibling.remove();
+                //del_but.parentElement.remove();
+            }
+        });
+
+        refresh_names()
+
+        function refresh_names() {
+            let i = 0;
+            document.querySelectorAll('.song_id').forEach(function (song) {
+                song.name = 'id_' + i;
+                i++;
+            });
+
+            i = 0;
+            document.querySelectorAll('.song_name').forEach(function (song) {
+                song.name = 'name_' + i;
+                i++;
+            });
+
+            i = 0;
+            document.querySelectorAll('.song_length').forEach(function (song) {
+                song.name = 'length_' + i;
+                i++;
+            });
+        }
+
+
+
+        document.getElementById('new-song').onclick = function () {
+            let song_count = parseInt(document.getElementById('songs_count').value);
+            document.getElementById('songs_count').value = song_count + 1;
+            let song_li = document.createElement('div');
+            song_li.classList.add('song-li');
+            for (let i = 0; i < 3; i++)
+            {
+                let div = document.createElement('div');
+                let input = document.createElement('input');
+                if (i == 0)
+                {
+                    input.type = 'number';
+                    input.value = document.querySelectorAll('.song-li').length.toString();
+                    input.classList.add('song_id');
+                    input.name = 'id_' + song_count;
+                    input.min = 1;
+                }
+                else if (i == 1) {
+                    input.classList.add('song_name')
+                    input.name = 'name_' + song_count;
+                    input.minLength = 4;
+                    input.maxLength = 20;
+                }
+                else {
+                    input.classList.add('song_length')
+                    input.name = 'length_' + song_count;
+                    input.pattern = "[1-5]?\\d:[0-5]\\d";
+                }
+                div.appendChild(input);
+                song_li.appendChild(div);
+            }
+
+            let div = document.createElement('div');
+            let button = document.createElement('button');
+            button.classList.add('delete');
+            button.type = 'button';
+            button.onclick = function () {
+                button.parentElement.parentElement.nextElementSibling.remove();
+                button.parentElement.parentElement.remove();
+                let song_count = parseInt(document.getElementById('songs_count').value);
+                document.getElementById('songs_count').value = song_count - 1;
+                refresh_names();
+            }
+            let img = document.createElement('img');
+            img.src = 'https://cdn3.iconfinder.com/data/icons/social-messaging-ui-color-line/254000/82-512.png';
+            button.appendChild(img);
+            div.appendChild(button);
+            song_li.appendChild(div);
+
+            let arr = document.querySelectorAll('.line.small');
+            let line = document.createElement('div');
+            line.classList.add('line');
+            line.classList.add('small');
+            arr[arr.length - 1].after(song_li);
+            arr = document.querySelectorAll('.song-li');
+            arr[arr.length - 1].after(line);
+
+            refresh_names();
+            //document.querySelector('.song-li:last-of-type').appendChild(song_li);
+        }
+
+        document.getElementById('new_image').onclick = function () {
+            document.getElementById('file').click();
+        }
+        
+        document.getElementById('file').onchange = function () {
+            let reader = new FileReader();
+            reader.onload = function () {
+                document.querySelector('.photo-without img').src = reader.result;
+            }
+            reader.readAsDataURL(this.files[0]);
+
+        }
+    </script>
+{% endblock %}

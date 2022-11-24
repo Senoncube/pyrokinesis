@@ -1,0 +1,48 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Albums
+{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="/static/albums_styles.css">
+{% endblock %}
+
+{% block content %}
+    <main>
+        <div class="line main"></div>
+            <h1>Альбоми</h1>
+        <div class="line main"></div>
+        <div class="main-wraper">
+
+            {% for album in albums %}
+                <div class="album">
+                    <div class="img-wraper" >
+                        <div class="hole"></div>
+                        <img src="/static/covers/{{ album.cover }}">
+                    </div>
+                    <div class="title">
+                        <h1>{{ album.name }}</h1>
+                        <div class="descr">
+                            <div>
+                                Кількість треків: {{ album.songs|count }}
+                            </div>
+                            <div>
+                                Рік випуску: {{ album.year }}
+                            </div>
+                            <div>
+                                Автор поста: {{ authors[album.id] }}
+                            </div>
+                        </div>
+                    </div>
+                    <a href="/albums/{{ album.path }}"><span class="gradient-text">▶</span></a>
+                </div>
+            {% endfor %}
+        </div>
+        {% if 'user' in session %}
+            <div class="new-but-wraper">
+                <a href="{{ url_for('create') }}" class="new"><span class="gradient-text">+</span></a>
+            </div>
+        {% endif %}
+    </main>
+{% endblock %}

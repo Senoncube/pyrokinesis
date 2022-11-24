@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ua">
+<head>
+    <meta charset="UTF-8">
+    <link
+            href="https://fonts.googleapis.com/css?family=Anton%7CBaskervville%7CRaleway&display=swap"
+            rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/static/main.css">
+    {% block styles %}{% endblock %}
+    {% block js %}{% endblock %}
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="message {{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <header class="main-header">
+        <nav>
+            <div class="left">
+                <a href="{{ url_for('home') }}">Pyrokinesis</a>
+                <a href="{{ url_for('about') }}">Про проект</a>
+                <a href="{{ url_for('history') }}">Історія виконавця</a>
+                <a href="{{ url_for('albums') }}">Альбоми</a>
+            </div>
+            <div class="right">
+                {% if 'user' in session %}
+                    <a>{{ session['user'] }}</a>
+                    <a href="{{ url_for('logout') }}">Вийти</a>
+                {% else %}
+                    <a href="{{ url_for('login') }}">Увійти</a>
+                    <a href="{{ url_for('register') }}">Реєстрація</a>
+                {% endif %}
+
+            </div>
+        </nav>
+    </header>
+
+    {% block content %}
+    {% endblock %}
+
+    <footer class="foot">
+        <div class="line long"></div>
+        <div class="cop">© Created by Aleksandr Savchenko</div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,155 @@
+form {
+    min-width: 1500px;
+    margin-top: 50px;
+    font-family: "Raleway", Arial;
+}
+
+#name {
+    font-size: 40px;
+}
+
+input, textarea {
+    text-align: center;
+    padding: 5px 20px;
+    border: 2px solid black;
+    border-radius: 20px;
+}
+
+#year, .song_length {
+    font-size: 25px;
+    width: 150px;
+}
+.song_id {
+    font-size: 25px;
+    width: 100px;
+}
+
+#description {
+    width: 100%;
+    height: 100%;
+    font-size: 25px;
+    text-align: left;
+}
+
+#path {
+    font-size: 25px;
+    width: 300px;
+}
+
+.sec {
+    margin-top: -50px;
+}
+
+.song_name {
+    width: 70%;
+    font-size: 25px;
+}
+
+.text {
+    display: flex;
+    flex-direction: column;
+
+}
+
+h3 {
+    text-align: center;
+    margin: 10px;
+}
+
+.photo-without {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 500px;
+    min-height: 500px;
+}
+
+.photo-without img {
+    position: absolute;
+    width: 500px;
+    min-height: 500px;
+    z-index: 1;
+}
+
+textarea {
+    font-family: "Raleway", Arial;
+    font-size: 35px !important;
+}
+
+.buttons-wraper {
+    width: 80%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.button {
+    border: none;
+    cursor: pointer;
+}
+
+.save, .save:before, .save:after {
+    border-color: lightgreen;
+    color: green;
+}
+
+.cancel, .cancel:before, .cancel:after {
+    border-color: orangered;
+    color: crimson;
+}
+
+.plus {
+    color: white;
+    width: 200px;
+    height: 200px;
+    border: 5px solid white;
+    border-radius: 50%;
+    z-index: 10;
+    background: transparent;
+    font-size: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    transition: opacity 0.5s, text-shadow 0.5s;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.photo-without:hover .plus {
+    opacity: 100%;
+}
+
+.new-song {
+    transition: all 0.5s;
+    margin: 20px;
+    color: black;
+    opacity: 100%;
+    border-color: black;
+    width: 70px;
+    height: 70px;
+    font-size: 70px;
+}
+
+.new-song:hover {
+    transform: scale(120%);
+}
+
+.song-li {
+    grid-template-columns: 1fr 4fr 1fr 1fr;
+}
+.delete {
+    width: 50px;
+    height: 50px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    transition: all 0.5s;
+}
+.delete img {
+    width: 50px;
+    height: 50px;
+}
+
+.delete:hover {
+    transform: scale(120%);
+}

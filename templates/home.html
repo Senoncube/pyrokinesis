@@ -1,0 +1,93 @@
+{% extends "layout.html" %}
+
+{% block title %}Pyrokinesis
+{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="/static/home_styles.css">
+{% endblock %}
+
+{% block content %}
+    <main>
+        <div class="line main"></div>
+        <h1 class="main-h1">Pyrokinesis — коли внутрішні демони стають твоїми піснями</h1>
+        <div class="line main"></div>
+        <div class="section-wraper">
+            <section class="pyro-about odd">
+                <div class="text">
+                    <h2>Про Pyrokinesis</h2>
+                    <span class="start">Pyrokinesis</span> – він же Андрій Пірокінезіс. Його музика - це не просто вигаданий образ, а реально прожиті та відчуті автором моменти. Він уміє створити атмосферу, яка одразу виникає під час прослуховування треків. Його тексти, що йдуть від серця, несуть у собі ненависть, біль та агресію особистості, яка шукає вихід із туману безвиході. Це крик душі, замкненої у клітці.
+                </div>
+                <div  class="pyro-photo1">
+                    <img class="moving-img" src="https://lastfm.freetls.fastly.net/i/u/770x0/44af0304bc757ae11aabe02bb066605d.jpg">
+                </div>
+
+            </section>
+        </div>
+        <div class="line main"></div>
+        <div class="section-wraper">
+            <section class="pyro-about even">
+                <div  class="pyro-photo1">
+                    <img class="moving-img" src="https://i.pinimg.com/736x/33/46/3c/33463c05e42b13cc355d354d8ecffb81.jpg">
+                </div>
+                <div class="text">
+                    <h2>Про псевдонім</h2>
+                     Цей хлопець дуже гарячий за характером та звичками.
+                    Любитель тепла в прямому значенні цього слова, гаряче сперечається і обожнює міцні напої.
+                    Тому все те, що гаряче має пряме відношення до нього. А це вогонь у всіх його протилежностях.
+                    З одного боку – спалювання та руйнування, з іншого – тепло та світло.
+                    Десь між двома цими протиріччями та протилежностями шукає себе Pyrokinesis.
+                    </div>
+
+            </section>
+        </div>
+    <div class="line main"></div>
+    <div class="section-wraper">
+            <section class="pyro-about odd">
+                <div class="text">
+                    <h2>Про навчання і фізику</h2>
+                    <span class="quote left">«</span>Я цілеспрямовано пішов на фізику,
+                    курс електроніки та нанотехнологій. Не з подачки батьків чи чогось.
+                    Реально хотів це вивчати, на другому курсі навіть якоюсь науковою діяльністю займався,
+                    поки в музику з головою не вдарився і не забив. У мене якось був баттловий трек,
+                    збудований навколо панчів про фізику. Я був молодий, тож вийшло страшно.
+                    Щось типу "твоя мама як матеріальна точка".
+                    <span class="quote right">»</span>
+                </div>
+                <div  class="pyro-photo1">
+                    <img class="moving-img" src="https://i.pinimg.com/originals/47/be/b1/47beb15c65e37d149e58b166c74e65c2.jpg">
+                </div>
+
+            </section>
+        </div>
+     <div class="line main"></div>
+    <div class="section-wraper">
+            <section class="pyro-about even">
+                <div  class="pyro-photo1">
+                    <img  class="moving-img" src="https://i.ibb.co/Hx7Yjmn/pv-Rn5-Zn-Eor-E-1.jpg">
+                </div>
+                <div class="text">
+                    <h2>Про алкоголь</h2>
+                    <span class="quote left">«</span>Випиваю багато і часто, але уже давно не відчуваю
+                    нічого приємного. Це як 15 років із дружиною у шлюбі.
+                    Ти вже терпіти його не можеш, бачити не можеш, тебе нудить від цієї х****і,
+                    але все одно напиваєшся постійно. У мене громадянський шлюб із пляшкою віскі.
+                    Не пийте хлопці, побережіть себе
+                    <span class="quote right">»</span>
+                </div>
+
+            </section>
+        </div>
+    <div class="line main"></div>
+    <section class="end">
+        <div class="end-text">
+            Також можете відвідати такі сторінки сайту:
+        </div>
+        <div class="links">
+            <a href="{{ url_for('about') }}" class="gradient-text">Про проект</a>
+            <a href="{{ url_for('history') }}" class="gradient-text">Історія виконавця</a>
+            <a href="{{ url_for('albums') }}" class="gradient-text">Альбоми</a>
+        </div>
+    </section>
+    </main>
+{% endblock %}

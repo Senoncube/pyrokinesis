@@ -1,0 +1,100 @@
+.pyro-photo1 {
+    width: 100%;
+    max-width: 500px;
+
+}
+
+
+.pyro-photo1 img {
+    width: 100%;
+}
+
+.pyro-about {
+    width: 70%;
+    display: grid;
+
+}
+
+.pyro-about.odd {
+    grid-template-columns: 3fr 2fr;
+}
+
+.pyro-about.even {
+    grid-template-columns: 2fr 3fr;
+}
+
+.pyro-about.even .pyro-photo1 img {
+    transform: translate(20px, 20px);
+}
+
+.pyro-about.even .pyro-photo1::after {
+    transform: translate(-20px, -20px);
+}
+
+
+.pyro-about .text {
+    font-size: 30px;
+    padding: 0 30px;
+    line-height: 40px;
+}
+
+.start {
+    margin-left: 50px;
+    font-weight: bold;
+}
+
+.section-wraper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+
+
+.quote {
+    font-size: 50px;
+    font-weight: bold;
+    line-height: 10px;
+    font-family: "Lucida Handwriting";
+}
+
+.text h2 {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.end {
+    height: 60vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 50px;
+    align-items: center;
+    margin-bottom: 100px;
+}
+
+.end-text {
+    width: 80%;
+    font-size: 50px;
+    text-align: center;
+}
+
+.end .links {
+    width: 80%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-top: 100px;
+    font-weight: bold;
+    font-size: 50px;
+    font-family: "Raleway", Arial;
+}
+
+.end a {
+    transition: transform 0.3s;
+}
+
+.end a:hover {
+    transform: scale(110%) translate(0, 10px);
+}

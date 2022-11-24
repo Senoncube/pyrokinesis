@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Login
+{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="/static/form_styles.css">
+{% endblock %}
+
+{% block content %}
+    <main>
+        <form action="" method="post">
+            <label for="username">Username</label>
+            <input type="text" name="username" id="username" class="text-box">
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" class="text-box">
+            <button type="submit" class="neon">Увійти</button>
+        </form>
+    </main>
+    <img class="bg" src="https://img1.akspic.ru/crops/1/2/2/9/4/149221/149221-illustracia-orientir-art-sinij-stil_retro-3840x2160.jpg">
+    {#<img class="bg" src="https://wallpaper.dog/large/20483555.jpg">#}
+{% endblock %}

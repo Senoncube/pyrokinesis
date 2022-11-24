@@ -1,0 +1,51 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    {{ album.name }}
+{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="/static/album_styles.css">
+{% endblock %}
+
+{% block content %}
+    <main>
+        <div class="line main"></div>
+            <h1>{{ album.name }}</h1>
+        <div class="line main"></div>
+        <h2>Рік випуску: {{ album.year }}</h2>
+        <div class="section-wraper">
+            <div class="section">
+                <div class="text">
+                    Опис: {{ album.description }}
+                </div>
+                <div class="pyro-photo1">
+                    <img src="/static/covers/{{ album.cover }}">
+                </div>
+            </div>
+        </div>
+         <h1 class="marg">Трек-лист:</h1>
+    <div class="section-wraper">
+        <div class="song-list">
+            <div class="song-li list-head">
+                <div>№</div>
+                <div>Назва</div>
+                <div>Час</div>
+            </div>
+            <div class="line small"></div>
+            {% for song in album.songs %}
+                <div class="song-li">
+                    <div>{{ song.in_alb_id }}.</div>
+                    <div>{{ song.name }}</div>
+                    <div>{{ song.length }}</div>
+                </div>
+                <div class="line small"></div>
+            {% endfor %}
+        </div>
+    </div>
+    <h1>Автор поста: {{ post_author }}</h1>
+    {% if 'user' in session %}
+        <a class="button cool-border" href="/albums/{{ album.path }}_edit">Редагувати</a>
+    {% endif %}
+    </main>
+{% endblock %}

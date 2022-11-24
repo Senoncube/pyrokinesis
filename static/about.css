@@ -1,0 +1,19 @@
+.section {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: -50px 0 50px 0;
+}
+
+.section h2 {
+    margin: 0;
+    padding: 0;
+}
+
+p {
+    width: 60%;
+    font-size: 25px;
+}

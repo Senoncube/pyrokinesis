@@ -1,0 +1,33 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="/static/form_styles.css">
+    <style>
+        form {
+            gap: 15px;
+        }
+        .foot .cop {
+            color: white;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <main>
+        <form action="" method="post">
+            <label for="username">Username</label>
+            <input type="text" minlength="4" maxlength="20" name="username" id="username" class="text-box">
+            <label for="password">Password</label>
+            <input type="password" minlength="4" maxlength="20" name="password" id="password" class="text-box">
+            <label for="password">Confirm Password</label>
+            <input type="password" name="password_confirm" id="password" class="text-box">
+            <button type="submit" class="neon">Зареєструватися</button>
+        </form>
+    </main>
+    {#<img class="bg" src="https://img1.akspic.ru/crops/1/2/2/9/4/149221/149221-illustracia-orientir-art-sinij-stil_retro-3840x2160.jpg">#}
+    <img class="bg" src="https://wallpaper.dog/large/20483555.jpg">
+{% endblock %}
