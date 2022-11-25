@@ -219,7 +219,7 @@ def album_edit(path):
         return redirect(f'/albums/{alb.path}')
 
     alb_author = users.query.filter_by(id=alb.post_author).first()
-    return render_template('edit_album_layout.html', album=alb, post_author=alb_author.username)
+    return render_template('edit_album_layout.html', album=alb, post_author=alb_author.username, redact=True)
 
 @app.route('/albums/<path>_delete')
 def delete_album(path):
@@ -257,7 +257,12 @@ def create():
         else:
             new_album.cover = 'standart.png'
 
-        album_id = album.query.filter_by().all()[-1].id + 1
+
+        if album.query.filter_by().all():
+            album_id = album.query.filter_by().all()[-1].id + 1
+        else:
+            new_album.id = 1
+            album_id = 1
 
         songs_count = int(request.form['songs_count'])
 
@@ -276,10 +281,10 @@ def create():
 
         db.session.add(new_album)
         db.session.commit()
-        flash(f'Альбом "{new_album.name}" додану до списку!', 'norm')
+        flash(f'Альбом "{new_album.name}" додано до списку!', 'norm')
         return redirect(url_for('albums'))
 
-    return render_template('edit_album_layout.html')
+    return render_template('edit_album_layout.html', redact=False)
 
 @app.errorhandler(404)
 def error_404(e):
@@ -293,7 +298,7 @@ def check_album(alb, songs, prew = None):
         if album.query.filter_by(path=alb.path).first():
             flash('Альбом з таким шляхом уже існує!', 'bad')
             return False
-    if alb.name.endswith('_edit'):
+    if alb.path.endswith('_edit'):
         flash('Назва не може закінчуватися на "_edit"!', 'bad')
         return False
     if len(alb.name) < 4:

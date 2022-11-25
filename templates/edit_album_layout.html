@@ -16,10 +16,10 @@
 {% block content %}
     <form method="post" action="" enctype="multipart/form-data">
         <div class="line main"></div>
-            <h1>Назва: <input id="name" minlength="4" maxlength="20" name="name" type="text" value="{% if album %}{{ album.name }}{% endif %}"></h1>
+            <h1>Назва: <input id="name" minlength="4" maxlength="30" name="name" type="text" value="{% if album %}{{ album.name }}{% endif %}"></h1>
         <div class="line main"></div>
         <h2>Рік випуску: <input id="year" min="1900" max="2100" name="year" type="number" value="{% if album %}{{ album.year }}{% endif %}"></h2>
-        <h2 class="sec">Шлях на сайті: <input id="path" minlength="4" pattern="\w{4,20}" name="path" type="text" value="{% if album %}{{ album.path }}{% endif %}"></h2>
+        <h2 class="sec">Шлях на сайті: <input id="path" minlength="4" pattern="\w{4,30}" name="path" type="text" value="{% if album %}{{ album.path }}{% endif %}"></h2>
         <div class="section-wraper">
             <div class="section">
                 <div class="text">
@@ -50,7 +50,7 @@
                 {% for song in album.songs %}
                     <div class="song-li">
                         <div><input class="song_id" min="1" type="number" value="{{ song.in_alb_id }}"></div>
-                        <div><input class="song_name" minlength="4" maxlength="20" type="text" value="{{ song.name }}"></div>
+                        <div><input class="song_name" minlength="4" maxlength="30" type="text" value="{{ song.name }}"></div>
                         <div><input class="song_length" type="text" pattern="[1-5]?\d:[0-5]\d" value="{{ song.length }}"></div>
                         <div><button class="delete" type="button"><img src="https://cdn3.iconfinder.com/data/icons/social-messaging-ui-color-line/254000/82-512.png"></button></div>
                     </div>
@@ -143,7 +143,7 @@
                     input.classList.add('song_name')
                     input.name = 'name_' + song_count;
                     input.minLength = 4;
-                    input.maxLength = 20;
+                    input.maxLength = 30;
                 }
                 else {
                     input.classList.add('song_length')

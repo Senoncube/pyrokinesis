@@ -87,6 +87,10 @@ textarea {
     cursor: pointer;
 }
 
+.song-list {
+    width: 80%;
+}
+
 .save, .save:before, .save:after {
     border-color: lightgreen;
     color: green;
