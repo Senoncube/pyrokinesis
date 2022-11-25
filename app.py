@@ -48,51 +48,6 @@ class song(db.Model):
         self.length = length
         self.album_id = album_id
 
-albums_list = [
-    {
-        'name': 'Акустический',
-        'cover': '30d251d2f344acc92cd15d5a1949d406.1000x1000x1.jpg',
-        'track_count': '8',
-        'year': '2019',
-        'post_author': 'Senon',
-        'path': 'akusticheskiy',
-        'description': 'Акустичний альбом',
-        'songs': [
-            {
-                'id': '1',
-                'name': 'Восток моей юности',
-                'length': '3:15'
-            },
-            {
-                'id': '2',
-                'name': 'Абоба бебра',
-                'length': '2:10'
-            }
-        ]
-    },
-    {
-        'name': 'FINAL FANTASY',
-        'cover': 'final_fantasy.jpg',
-        'track_count': '7',
-        'year': '2016',
-        'post_author': 'Senon',
-        'path': 'akusticheskiy',
-        'description': 'Акустичний альбом',
-        'songs': [
-            {
-                'id': '1',
-                'name': 'Okean',
-                'length': '3:15'
-            },
-            {
-                'id': '2',
-                'name': 'Абоба бебра',
-                'length': '2:10'
-            }
-        ]
-    }
-]
-
 @app.route('/')
 def home():  # put application's code here
     db.create_all()
@@ -183,17 +138,22 @@ def album_edit(path):
     if request.method == 'POST':
         prew = alb
 
-        alb.name = request.form['name']
-        alb.year = request.form['year']
-        alb.description = request.form['description']
-        alb.path = request.form['path']
+        new_alb = album()
 
-        past_songs = song.query.filter_by(album_id=alb.id).all()
+
+        new_alb.name = request.form['name']
+        new_alb.year = int(request.form['year'])
+        new_alb.description = request.form['description']
+        new_alb.path = request.form['path']
 
         if request.files['img_file']:
             image = request.files['img_file']
             image.save(os.path.join('static/covers/', image.filename))
-            alb.cover = image.filename
+            new_alb.cover = image.filename
+        else:
+            new_alb.cover = alb.cover
+
+        past_songs = song.query.filter_by(album_id=alb.id).all()
 
         for sg in past_songs:
             db.session.delete(sg)
@@ -211,8 +171,14 @@ def album_edit(path):
             songs.append(s)
             db.session.add(s)
 
-        if not check_album(alb, songs, prew):
-            return render_template('edit_album_layout.html', album=alb, redact=True)
+        if not check_album(new_alb, songs, prew):
+            return render_template('edit_album_layout.html', album=new_alb, redact=True)
+
+        alb.name = new_alb.name
+        alb.year = int(new_alb.year)
+        alb.path = new_alb.path
+        alb.cover = new_alb.cover
+        alb.description = new_alb.description
 
         db.session.commit()
         flash(f'Альбом "{alb.name}" змінено!', 'norm')
@@ -291,16 +257,22 @@ def error_404(e):
     return render_template('404.html'), 404
 
 def check_album(alb, songs, prew = None):
+    print(prew.path, alb.name)
     if not prew or prew.name != alb.name:
         if album.query.filter_by(name=alb.name).first():
             flash('Альбом за такою назвою уже існує!', 'bad')
             return False
+    if not prew or prew.path != alb.path:
         if album.query.filter_by(path=alb.path).first():
             flash('Альбом з таким шляхом уже існує!', 'bad')
             return False
+    if not alb.path:
+        alb.path = ""
     if alb.path.endswith('_edit'):
         flash('Назва не може закінчуватися на "_edit"!', 'bad')
         return False
+    if not alb.name:
+        alb.name = ""
     if len(alb.name) < 4:
         flash('Назва повинна бути мінімум 4 символи!', 'bad')
         return False
