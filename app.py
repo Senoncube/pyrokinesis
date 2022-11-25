@@ -234,6 +234,8 @@ def create():
 
         songs = []
 
+        print(songs_count)
+
         for i in range(songs_count):
             id = request.form[f'id_{i}']
             name = request.form[f'name_{i}']
@@ -257,7 +259,6 @@ def error_404(e):
     return render_template('404.html'), 404
 
 def check_album(alb, songs, prew = None):
-    print(prew.path, alb.name)
     if not prew or prew.name != alb.name:
         if album.query.filter_by(name=alb.name).first():
             flash('Альбом за такою назвою уже існує!', 'bad')
